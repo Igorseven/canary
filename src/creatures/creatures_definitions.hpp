@@ -754,7 +754,8 @@ enum Vocation_t : uint16_t {
 	VOCATION_KNIGHT_CIP = 1,
 	VOCATION_PALADIN_CIP = 2,
 	VOCATION_SORCERER_CIP = 3,
-	VOCATION_DRUID_CIP = 4
+	VOCATION_DRUID_CIP = 4,
+	VOCATION_MONK_CIP = 5
 };
 
 enum FightMode_t : uint8_t {
@@ -1375,6 +1376,13 @@ enum class CreatureIconQuests_t {
 	Hazard,
 	BrownSkull,
 	BloodDrop,
+};
+
+enum VirtueMonk_t : uint8_t {
+	VIRTUE_NONE = 0,
+	VIRTUE_HARMONY = 1,
+	VIRTUE_JUSTICE = 2,
+	VIRTUE_SUSTAIN = 3,
 };
 
 struct CreatureIcon {

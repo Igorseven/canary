@@ -148,8 +148,10 @@ enum class WheelInstant_t : uint8_t {
 	HEALING_LINK = 4,
 	RUNIC_MASTERY = 5,
 	FOCUS_MASTERY = 6,
+	GUIDING_PRESENCE = 7,
+	SANCTUARY = 8,
 
-	INSTANT_COUNT = 7
+	INSTANT_COUNT = 9
 };
 
 enum class WheelAvatarSkill_t : uint8_t {

@@ -58,4 +58,7 @@ private:
 	static int luaSpellAllowFarUse(lua_State* L);
 	static int luaSpellBlockWalls(lua_State* L);
 	static int luaSpellCheckFloor(lua_State* L);
+
+	// Monk
+	static int luaSpellHarmony(lua_State* L);
 };

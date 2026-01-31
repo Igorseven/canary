@@ -58,6 +58,7 @@ public:
 	BaseImbuement* getBaseByID(uint16_t id);
 	CategoryImbuement* getCategoryByID(uint16_t id);
 	std::vector<Imbuement*> getImbuements(const std::shared_ptr<Player> &player, const std::shared_ptr<Item> &item);
+	std::vector<Imbuement*> getAllImbuementsIntricateAndPowerful(const std::shared_ptr<Player> &player);
 
 protected:
 	friend class Imbuement;
@@ -94,7 +95,7 @@ public:
 	uint16_t getCategory() const;
 
 	const std::vector<std::pair<uint16_t, uint16_t>> &getItems() const;
-
+	std::vector<Imbuement*> getImbuements(const std::shared_ptr<Player> &player, const std::shared_ptr<Item> &item);
 	uint16_t getIconID() const;
 
 	uint16_t icon = 1;

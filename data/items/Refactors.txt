@@ -1,0 +1,2 @@
+﻿Inclusão do JSON de proficiencies
+Atualização do XML de items (Itens Sanguines da versão 15.x)

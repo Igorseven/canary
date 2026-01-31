@@ -2,7 +2,7 @@ local mType = Game.createMonsterType("Dharalion")
 local monster = {}
 
 monster.description = "Dharalion"
-monster.experience = 380
+monster.experience = 570
 monster.outfit = {
 	lookType = 203,
 	lookHead = 0,
@@ -11,6 +11,11 @@ monster.outfit = {
 	lookFeet = 0,
 	lookAddons = 0,
 	lookMount = 0,
+}
+
+monster.bosstiary = {
+	bossRaceId = 203,
+	bossRace = RARITY_NEMESIS,
 }
 
 monster.health = 380
@@ -23,11 +28,6 @@ monster.manaCost = 0
 monster.changeTarget = {
 	interval = 5000,
 	chance = 8,
-}
-
-monster.bosstiary = {
-	bossRaceId = 203,
-	bossRace = RARITY_NEMESIS,
 }
 
 monster.strategiesTarget = {
@@ -52,9 +52,9 @@ monster.flags = {
 	runHealth = 0,
 	healthHidden = false,
 	isBlockable = false,
-	canWalkOnEnergy = false,
-	canWalkOnFire = false,
-	canWalkOnPoison = false,
+	canWalkOnEnergy = true,
+	canWalkOnFire = true,
+	canWalkOnPoison = true,
 }
 
 monster.light = {
@@ -74,27 +74,30 @@ monster.voices = {
 	chance = 10,
 	{ text = "Feel my wrath!", yell = false },
 	{ text = "No one will stop my ascension!", yell = false },
+	{ text = "My powers are divine!", yell = false },
 	{ text = "You desecrated this temple!", yell = false },
 	{ text = "Muahahaha!", yell = false },
-	{ text = "My powers are divine!", yell = false },
 }
 
 monster.loot = {
 	{ name = "gold coin", chance = 100000, maxCount = 100 },
 	{ name = "holy orchid", chance = 100000 },
-	{ name = "elvish talisman", chance = 88000 },
-	{ name = "elven astral observer", chance = 82000 },
-	{ name = "yellow gem", chance = 41790 },
-	{ name = "blank rune", chance = 25370, maxCount = 1 },
-	{ name = "melon", chance = 22390 },
-	{ name = "bread", chance = 16420 },
-	{ name = "elven amulet", chance = 14930 },
-	{ name = "great mana potion", chance = 13430 },
-	{ name = "life crystal", chance = 13430 },
-	{ name = "sling herb", chance = 8960 },
-	{ id = 3257, chance = 7460 }, -- cornucopia
-	{ name = "green tunic", chance = 4480 },
-	{ name = "royal spear", chance = 1490, maxCount = 2 },
+	{ name = "elvish talisman", chance = 90100 },
+	{ name = "elven astral observer", chance = 86140 },
+	{ name = "yellow gem", chance = 36630 },
+	{ name = "blank rune", chance = 19800 },
+	{ name = "melon", chance = 24750 },
+	{ name = "bread", chance = 13860 },
+	{ name = "elven amulet", chance = 16830 },
+	{ name = "great mana potion", chance = 15840 },
+	{ name = "life crystal", chance = 12870 },
+	{ name = "sling herb", chance = 10890 },
+	{ id = 3257, chance = 7920 }, -- cornucopia
+	{ name = "green tunic", chance = 5940 },
+	{ name = "royal spear", chance = 990 },
+	{ id = 2902, chance = 1000 }, -- bowl
+	{ name = "candlestick", chance = 1000 },
+	{ id = 5805, chance = 1000 }, -- golden goblet
 }
 
 monster.attacks = {
@@ -108,6 +111,7 @@ monster.attacks = {
 monster.defenses = {
 	defense = 25,
 	armor = 15,
+	--	mitigation = ???,
 	{ name = "combat", interval = 1000, chance = 20, type = COMBAT_HEALING, minDamage = 90, maxDamage = 120, effect = CONST_ME_MAGIC_BLUE, target = false },
 	{ name = "speed", interval = 1000, chance = 7, speedChange = 300, effect = CONST_ME_MAGIC_RED, target = false, duration = 10000 },
 }
@@ -115,18 +119,18 @@ monster.defenses = {
 monster.elements = {
 	{ type = COMBAT_PHYSICALDAMAGE, percent = 0 },
 	{ type = COMBAT_ENERGYDAMAGE, percent = 0 },
-	{ type = COMBAT_EARTHDAMAGE, percent = 100 },
-	{ type = COMBAT_FIREDAMAGE, percent = 100 },
-	{ type = COMBAT_LIFEDRAIN, percent = 100 },
+	{ type = COMBAT_EARTHDAMAGE, percent = 0 },
+	{ type = COMBAT_FIREDAMAGE, percent = 0 },
+	{ type = COMBAT_LIFEDRAIN, percent = 0 },
 	{ type = COMBAT_MANADRAIN, percent = 0 },
 	{ type = COMBAT_DROWNDAMAGE, percent = 0 },
 	{ type = COMBAT_ICEDAMAGE, percent = 0 },
-	{ type = COMBAT_HOLYDAMAGE, percent = 0 },
+	{ type = COMBAT_HOLYDAMAGE, percent = -10 },
 	{ type = COMBAT_DEATHDAMAGE, percent = 0 },
 }
 
 monster.immunities = {
-	{ type = "paralyze", condition = false },
+	{ type = "paralyze", condition = true },
 	{ type = "outfit", condition = false },
 	{ type = "invisible", condition = true },
 	{ type = "bleed", condition = false },

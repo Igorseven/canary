@@ -22,6 +22,7 @@ target_sources(
             players/imbuements/imbuements.cpp
             players/management/ban.cpp
             players/management/waitlist.cpp
+            players/proficiencies/proficiencies.cpp
             players/storages/storages.cpp
             players/player.cpp
             players/components/player_achievement.cpp

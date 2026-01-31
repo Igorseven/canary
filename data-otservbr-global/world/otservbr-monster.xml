@@ -15881,9 +15881,6 @@
 	<monster centerx="32995" centery="31478" centerz="6" radius="1">
 		<monster name="Werewolf" x="0" y="0" z="6" spawntime="90" />
 	</monster>
-	<monster centerx="33957" centery="31479" centerz="6" radius="1">
-		<monster name="Pink Butterfly" x="0" y="0" z="6" spawntime="60" />
-	</monster>
 	<monster centerx="32940" centery="31481" centerz="6" radius="2">
 		<monster name="Vampire" x="0" y="0" z="6" spawntime="90" />
 	</monster>
@@ -29024,9 +29021,6 @@
 	</monster>
 	<monster centerx="33791" centery="31509" centerz="7" radius="1">
 		<monster name="Flamingo" x="0" y="1" z="7" spawntime="60" />
-	</monster>
-	<monster centerx="33883" centery="31509" centerz="7" radius="1">
-		<monster name="Pink Butterfly" x="0" y="-1" z="7" spawntime="60" />
 	</monster>
 	<monster centerx="33134" centery="31510" centerz="7" radius="3">
 		<monster name="Terror Bird" x="-2" y="-3" z="7" spawntime="90" />
@@ -184102,12 +184096,6 @@
 	<monster centerx="33427" centery="32147" centerz="4" radius="3">
 		<monster name="Gingerbread Man" x="2" y="-2" z="4" spawntime="60" />
 	</monster>
-	<monster centerx="33421" centery="32140" centerz="5" radius="3">
-		<monster name="Chocolate Blob" x="-2" y="-3" z="5" spawntime="60" />
-	</monster>
-	<monster centerx="33364" centery="32161" centerz="5" radius="3">
-		<monster name="Chocolate Blob" x="2" y="1" z="5" spawntime="60" />
-	</monster>
 	<monster centerx="33393" centery="32119" centerz="6" radius="3">
 		<monster name="Sugar Cube" x="1" y="0" z="6" spawntime="60" />
 		<monster name="Fruit Drop" x="2" y="0" z="6" spawntime="60" />
@@ -184117,9 +184105,6 @@
 	</monster>
 	<monster centerx="33435" centery="32147" centerz="6" radius="3">
 		<monster name="Truffle Cook" x="-1" y="1" z="6" spawntime="60" />
-	</monster>
-	<monster centerx="33364" centery="32161" centerz="6" radius="3">
-		<monster name="Chocolate Blob" x="3" y="1" z="6" spawntime="60" />
 	</monster>
 	<monster centerx="33393" centery="32098" centerz="7" radius="3">
 		<monster name="Sugar Cube" x="0" y="2" z="7" spawntime="60" />
@@ -184158,7 +184143,6 @@
 	</monster>
 	<monster centerx="33421" centery="32133" centerz="7" radius="3">
 		<monster name="Truffle" x="-1" y="-3" z="7" spawntime="60" />
-		<monster name="Chocolate Blob" x="-1" y="2" z="7" spawntime="60" />
 	</monster>
 	<monster centerx="33449" centery="32133" centerz="7" radius="3">
 		<monster name="Gingerbread Man" x="-2" y="-3" z="7" spawntime="60" />
@@ -184166,14 +184150,10 @@
 	<monster centerx="33351" centery="32140" centerz="7" radius="3">
 		<monster name="Truffle" x="2" y="1" z="7" spawntime="60" />
 	</monster>
-	<monster centerx="33386" centery="32140" centerz="7" radius="3">
-		<monster name="Chocolate Blob" x="0" y="-3" z="7" spawntime="60" />
-	</monster>
 	<monster centerx="33358" centery="32147" centerz="7" radius="3">
 		<monster name="Cream Blob" x="-1" y="3" z="7" spawntime="60" />
 	</monster>
 	<monster centerx="33393" centery="32147" centerz="7" radius="3">
-		<monster name="Chocolate Blob" x="-2" y="-2" z="7" spawntime="60" />
 		<monster name="Fruit Drop" x="-2" y="3" z="7" spawntime="60" />
 	</monster>
 	<monster centerx="33414" centery="32147" centerz="7" radius="3">
@@ -184213,9 +184193,6 @@
 	</monster>
 	<monster centerx="33421" centery="32175" centerz="7" radius="3">
 		<monster name="Gingerbread Man" x="-3" y="-3" z="7" spawntime="60" />
-	</monster>
-	<monster centerx="33386" centery="32182" centerz="7" radius="3">
-		<monster name="Chocolate Blob" x="2" y="2" z="7" spawntime="60" />
 	</monster>
 	<monster centerx="33386" centery="32189" centerz="7" radius="3">
 		<monster name="Truffle" x="2" y="-2" z="7" spawntime="60" />

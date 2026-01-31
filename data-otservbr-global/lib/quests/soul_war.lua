@@ -101,6 +101,9 @@ SoulWarQuest = {
 		{ id = 34097, name = "pair of soulwalkers" },
 		{ id = 34098, name = "pair of soulstalkers" },
 		{ id = 34099, name = "soulbastion" },
+		{ id = 50254, name = "soulgarb" },
+		{ id = 50240, name = "soulsoles" },
+		{ id = 50159, name = "soulkamas" },
 	},
 
 	kvSoulWar = KV.scoped("quest"):scoped("soul-war"),

@@ -354,10 +354,11 @@ std::vector<Imbuement*> Imbuements::getImbuements(const std::shared_ptr<Player> 
 		}
 
 		// Parse the storages for each imbuement in imbuements.xml and config.lua (enable/disable storage)
-		if (g_configManager().getBoolean(TOGGLE_IMBUEMENT_SHRINE_STORAGE)
-		    && imbuement->getStorage() != 0
-		    && player->getStorageValue(imbuement->getStorage() == -1)
-		    && imbuement->getBaseID() >= 1 && imbuement->getBaseID() <= 3) {
+		if (g_configManager().getBoolean(TOGGLE_IMBUEMENT_SHRINE_STORAGE) && imbuement->getStorage() != 0 && player->getStorageValue(imbuement->getStorage()) == -1) {
+			continue;
+		}
+
+		if (imbuement->isPremium() && !player->isPremium()) {
 			continue;
 		}
 
@@ -369,6 +370,31 @@ std::vector<Imbuement*> Imbuements::getImbuements(const std::shared_ptr<Player> 
 
 		// If the item is already imbued with an imbuement, remove the imbuement from the next free slot
 		if (item->hasImbuementCategoryId(categoryImbuement->id)) {
+			continue;
+		}
+
+		imbuements.emplace_back(imbuement);
+	}
+
+	return imbuements;
+}
+
+std::vector<Imbuement*> Imbuements::getAllImbuementsIntricateAndPowerful(const std::shared_ptr<Player> &player) {
+	std::vector<Imbuement*> imbuements;
+
+	for (auto &[key, value] : imbuementMap) {
+		Imbuement* imbuement = &value;
+
+		// Parse the storages for each imbuement in imbuements.xml and config.lua (enable/disable storage)
+		if (g_configManager().getBoolean(TOGGLE_IMBUEMENT_SHRINE_STORAGE) && imbuement->getStorage() != 0 && player->getStorageValue(imbuement->getStorage()) == -1) {
+			continue;
+		}
+
+		if (imbuement->isPremium() && !player->isPremium()) {
+			continue;
+		}
+
+		if (imbuement->getBaseID() < 2) {
 			continue;
 		}
 

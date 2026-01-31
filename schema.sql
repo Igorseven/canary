@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `players` (
     `lookmountfeet` tinyint(3) unsigned NOT NULL DEFAULT '0',
     `lookmounthead` tinyint(3) unsigned NOT NULL DEFAULT '0',
     `lookmountlegs` tinyint(3) unsigned NOT NULL DEFAULT '0',
+    `currentmount` smallint(5) unsigned NOT NULL DEFAULT '0'
     `lookfamiliarstype` int(11) unsigned NOT NULL DEFAULT '0',
     `isreward` tinyint(1) NOT NULL DEFAULT '1',
     `istutorial` tinyint(1) NOT NULL DEFAULT '0',
@@ -149,7 +150,11 @@ CREATE TABLE IF NOT EXISTS `players` (
     `forge_dust_level` bigint(21) NOT NULL DEFAULT '100',
     `randomize_mount` tinyint(1) NOT NULL DEFAULT '0',
     `boss_points` int NOT NULL DEFAULT '0',
+    `loyalty_points` int(10) UNSIGNED NOT NULL DEFAULT '0',
     `animus_mastery` mediumblob DEFAULT NULL,
+    `virtue` int(10) UNSIGNED NOT NULL DEFAULT '0',
+    `harmony` int(10) UNSIGNED NOT NULL DEFAULT '0',
+    `weapon_proficiencies` mediumblob DEFAULT NULL,
     INDEX `account_id` (`account_id`),
     INDEX `vocation` (`vocation`),
     CONSTRAINT `players_pk` PRIMARY KEY (`id`),
@@ -292,6 +297,18 @@ CREATE TABLE IF NOT EXISTS `boosted_creature` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `boosted_creature` (`boostname`, `date`, `raceid`) VALUES ('default', 0, 0);
+
+-- Table structure `player_oldnames` (Peguei do Crystal)
+CREATE TABLE IF NOT EXISTS `player_oldnames` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `player_id` int(11) NOT NULL,
+    `former_name` varchar(255) NOT NULL DEFAULT '',
+    `name` varchar(255) NOT NULL,
+    `old_name` varchar(255) NOT NULL,
+    `date` int(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `player_id_index` (`player_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Tabble Structure `daily_reward_history`
 CREATE TABLE IF NOT EXISTS `daily_reward_history` (
@@ -560,10 +577,10 @@ CREATE TABLE IF NOT EXISTS `players_online` (
 -- Table structure `player_charm`
 CREATE TABLE IF NOT EXISTS `player_charms` (
     `player_id` int(11) NOT NULL,
-    `charm_points` SMALLINT NOT NULL DEFAULT '0',
-    `minor_charm_echoes` SMALLINT NOT NULL DEFAULT '0',
-    `max_charm_points` SMALLINT NOT NULL DEFAULT '0',
-    `max_minor_charm_echoes` SMALLINT NOT NULL DEFAULT '0',
+    `charm_points` int(10) UNSIGNED NOT NULL DEFAULT 0,
+    `minor_charm_echoes` int(10) UNSIGNED NOT NULL DEFAULT 0,
+    `max_charm_points` int(10) UNSIGNED NOT NULL DEFAULT 0,
+    `max_minor_charm_echoes` int(10) UNSIGNED NOT NULL DEFAULT 0,
     `charm_expansion` BOOLEAN NOT NULL DEFAULT FALSE,
     `UsedRunesBit` INT NOT NULL DEFAULT '0',
     `UnlockedRunesBit` INT NOT NULL DEFAULT '0',
@@ -573,6 +590,19 @@ CREATE TABLE IF NOT EXISTS `player_charms` (
         FOREIGN KEY (`player_id`) REFERENCES `players` (`id`)
         ON DELETE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+
+-- Table structure `player_statements` (peguei do Crystal)
+CREATE TABLE IF NOT EXISTS `player_statements` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `player_id` INT NOT NULL,
+    `receiver` TEXT NOT NULL,
+    `channel_id` INT NOT NULL DEFAULT 0,
+    `text` VARCHAR (255) NOT NULL,
+    `date` BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`), KEY (`player_id`), KEY (`channel_id`),
+    FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Table structure `player_deaths`
 CREATE TABLE IF NOT EXISTS `player_deaths` (
@@ -794,6 +824,27 @@ CREATE TABLE IF NOT EXISTS `player_storage` (
         FOREIGN KEY (`player_id`) REFERENCES `players` (`id`)
         ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Table structure `player_outfits` (peguei do Crystal)
+CREATE TABLE IF NOT EXISTS `player_outfits` (
+    `player_id` int(11) NOT NULL DEFAULT '0',
+    `outfit_id` smallint(4) UNSIGNED NOT NULL DEFAULT '0',
+    `addons` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+    CONSTRAINT `player_outfits_pk` PRIMARY KEY (`player_id`, `outfit_id`),
+    CONSTRAINT `player_outfits_players_fk`
+        FOREIGN KEY (`player_id`) REFERENCES `players`(`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;
+
+-- Table structure `player_mounts` (peguei do Crystal)
+CREATE TABLE IF NOT EXISTS `player_mounts` (
+    `player_id` int(11) NOT NULL DEFAULT '0',
+    `mount_id` smallint(4) UNSIGNED NOT NULL DEFAULT '0',
+    CONSTRAINT `player_mounts_pk` PRIMARY KEY (`player_id`, `mount_id`),
+    CONSTRAINT `player_mounts_players_fk`
+        FOREIGN KEY (`player_id`) REFERENCES `players`(`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8;
 
 -- Table structure `store_history`
 CREATE TABLE IF NOT EXISTS `store_history` (

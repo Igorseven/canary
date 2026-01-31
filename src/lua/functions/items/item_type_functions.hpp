@@ -78,4 +78,11 @@ private:
 	static int luaItemTypeGetVocationString(lua_State* L);
 
 	static int luaItemTypeHasSubType(lua_State* L);
+	static int luaItemTypeGetAbilities(lua_State* L);
+
+	static int luaItemTypeIsWrapKit(lua_State* L);
+	static int luaItemTypeIsSpellBook(lua_State* L);
+
+	static int luaItemTypeGetElementalBond(lua_State* L);
+	static int luaItemTypeGetMantra(lua_State* L);
 };

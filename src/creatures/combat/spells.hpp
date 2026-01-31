@@ -227,6 +227,9 @@ public:
 	void getCombatDataAugment(const std::shared_ptr<Player> &player, CombatDamage &damage) const;
 	int32_t calculateAugmentSpellCooldownReduction(const std::shared_ptr<Player> &player) const;
 
+	[[nodiscard]] bool getHarmonyCost() const;
+	void setHarmonyCost(bool h);
+
 protected:
 	void applyCooldownConditions(const std::shared_ptr<Player> &player) const;
 	bool playerSpellCheck(const std::shared_ptr<Player> &player) const;
@@ -269,6 +272,7 @@ private:
 	bool learnable = false;
 	bool enabled = true;
 	bool premium = false;
+	bool harmony = false;
 
 	std::string name;
 	std::string m_words;

@@ -1060,6 +1060,14 @@ void Spell::setLockedPZ(bool b) {
 
 InstantSpell::InstantSpell() = default;
 
+bool Spell::getHarmonyCost() const {
+	return harmony;
+}
+
+void Spell::setHarmonyCost(bool h) {
+	harmony = h;
+}
+
 bool InstantSpell::playerCastInstant(const std::shared_ptr<Player> &player, std::string &param) const {
 	if (!playerSpellCheck(player)) {
 		return false;

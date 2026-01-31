@@ -83,6 +83,8 @@ struct PlayerWheelMethodsBonusData {
 		int beamMastery = 0; // Sorcerer
 		int twinBurst = 0; // Druid
 		int executionersThrow = 0; // Knight
+		int spiritualOutburst = 0; // Monk
+		int ascetic = 0; // Monk
 	};
 
 	struct Avatar {
@@ -90,6 +92,7 @@ struct PlayerWheelMethodsBonusData {
 		int nature = 0; // Druid
 		int steel = 0; // Knight
 		int storm = 0; // Sorcerer
+		int balance = 0; // Monk
 	};
 
 	// Initialize structs

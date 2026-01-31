@@ -3302,7 +3302,13 @@ int PlayerFunctions::luaPlayerOpenImbuementWindow(lua_State* L) {
 		return 1;
 	}
 
-	player->openImbuementWindow(item);
+	Imbuement_Window_t type = IMBUEMENT_WINDOW_SELECT_ITEM;
+	if (item->getID() == ITEM_BLANK_IMBUEMENT_SCROLL) {
+		type = IMBUEMENT_WINDOW_SCROLL;
+	}
+
+	player->openImbuementWindow(type, item);
+	Lua::pushBoolean(L, true);
 	return 1;
 }
 

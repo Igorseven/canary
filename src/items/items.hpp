@@ -37,6 +37,9 @@ struct Abilities {
 	// relfect abilities modifires
 	int16_t reflectPercent[COMBAT_COUNT] = { 0 };
 
+	// mantra abilities modifiers
+	int16_t mantraAbsorbValue[COMBAT_COUNT] = { 0 };
+
 	// elemental damage
 	uint16_t elementDamage = 0;
 	CombatType_t elementType = COMBAT_NONE;
@@ -372,6 +375,11 @@ public:
 	bool isWrapKit = false;
 	bool m_canBeUsedByGuests = false;
 	bool m_isMagicShieldPotion = false;
+
+	std::string elementalBond;
+	int16_t mantra = 0;
+
+	uint32_t proficiencyId = 0;
 };
 
 class Items {

@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "server/server_definitions.hpp"
 #include "creatures/creature.hpp"
 #include "enums/forge_conversion.hpp"
 #include "game/bank/bank.hpp"
@@ -29,6 +30,8 @@
 #include "creatures/players/components/player_vip.hpp"
 #include "creatures/players/components/wheel/wheel_gems.hpp"
 #include "creatures/players/components/player_attached_effects.hpp"
+#include "creatures/players/proficiencies/proficiencies.hpp"
+#include "creatures/players/proficiencies/proficiencies_definitions.hpp"
 
 class House;
 class NetworkMessage;
@@ -85,6 +88,7 @@ enum SpeakClasses : uint8_t;
 enum ChannelEvent_t : uint8_t;
 enum SquareColor_t : uint8_t;
 enum Resource_t : uint8_t;
+enum VirtueMonk_t : uint8_t;
 
 using GuildWarVector = std::vector<uint32_t>;
 using StashContainerList = std::vector<std::pair<std::shared_ptr<Item>, uint32_t>>;
@@ -101,6 +105,89 @@ struct CharmInfo {
 struct OpenContainer {
 	std::shared_ptr<Container> container;
 	uint16_t index;
+};
+
+// Weapon Proficiency
+struct WeaponProficiencyPerk {
+	uint8_t proficiencyLevel = 0;
+	uint8_t perkPosition = 0;
+};
+
+struct WeaponProficiencyData {
+	uint32_t experience = 0;
+	std::vector<WeaponProficiencyPerk> activePerks;
+};
+
+struct WeaponProficiencyAugment {
+	uint16_t spellId = 0;
+	WeaponProficiencyPerkAugmentType_t augmentType = PROFICIENCY_AUGMENTTYPE_NONE;
+	float value = 0;
+};
+
+struct EquippedWeaponProficiencyBonuses {
+	uint8_t attack = 0;
+	uint8_t defense = 0;
+	uint8_t weaponShieldMod = 0;
+	std::map<skills_t, uint8_t> skillBonus;
+	int32_t specialMagicLevel[COMBAT_COUNT] = { 0 };
+	std::vector<WeaponProficiencyAugment> spellAugments;
+	float bestiaryRacePercentDamageGain = 0;
+	float damageGainBossAndSinisterEmbraced = 0;
+	uint16_t critHitChance = 0;
+	int32_t critHitChanceForElementIdToSpellsAndRunes[COMBAT_COUNT] = { 0 };
+	uint16_t critHitChanceForOffensiveRunes = 0;
+	uint16_t critHitChanceForAutoAttack = 0;
+	uint16_t critExtraDamage = 0;
+	int32_t critExtraDamageForElementIdToSpellsAndRunes[COMBAT_COUNT] = { 0 };
+	uint16_t critExtraDamageForOffensiveRunes = 0;
+	uint16_t critExtraDamageForAutoAttack = 0;
+	uint16_t manaLeech = 0;
+	uint16_t lifeLeech = 0;
+	uint8_t manaGainOnHit = 0;
+	uint8_t lifeGainOnHit = 0;
+	uint8_t manaGainOnKill = 0;
+	uint8_t lifeGainOnKill = 0;
+	std::map<uint8_t, uint8_t> gainDamageAtRange;
+	float rangedHitChance = 0;
+	uint8_t attackRange = 0;
+	std::map<skills_t, float> skillPercentageAsExtraDamageForAutoAttack;
+	std::map<skills_t, float> skillPercentageAsExtraDamageForSpells;
+	std::map<skills_t, float> skillPercentageAsExtraHealingForSpells;
+
+	uint8_t bestiaryId = 0;
+
+	void reset() {
+		attack = 0;
+		defense = 0;
+		weaponShieldMod = 0;
+		skillBonus.clear();
+		std::fill(std::begin(specialMagicLevel), std::end(specialMagicLevel), 0);
+		spellAugments.clear();
+		bestiaryRacePercentDamageGain = 0;
+		damageGainBossAndSinisterEmbraced = 0;
+		critHitChance = 0;
+		std::fill(std::begin(critHitChanceForElementIdToSpellsAndRunes), std::end(critHitChanceForElementIdToSpellsAndRunes), 0);
+		critHitChanceForOffensiveRunes = 0;
+		critHitChanceForAutoAttack = 0;
+		critExtraDamage = 0;
+		std::fill(std::begin(critExtraDamageForElementIdToSpellsAndRunes), std::end(critExtraDamageForElementIdToSpellsAndRunes), 0);
+		critExtraDamageForOffensiveRunes = 0;
+		critExtraDamageForAutoAttack = 0;
+		manaLeech = 0;
+		lifeLeech = 0;
+		manaGainOnHit = 0;
+		lifeGainOnHit = 0;
+		manaGainOnKill = 0;
+		lifeGainOnKill = 0;
+		gainDamageAtRange.clear();
+		rangedHitChance = 0;
+		attackRange = 0;
+		skillPercentageAsExtraDamageForAutoAttack.clear();
+		skillPercentageAsExtraDamageForSpells.clear();
+		skillPercentageAsExtraHealingForSpells.clear();
+
+		bestiaryId = 0;
+	}
 };
 
 using MuteCountMap = std::map<uint32_t, uint32_t>;
@@ -931,11 +1018,21 @@ public:
 	// Imbuements
 	void onApplyImbuement(const Imbuement* imbuement, const std::shared_ptr<Item> &item, uint8_t slot, bool protectionCharm);
 	void onClearImbuement(const std::shared_ptr<Item> &item, uint8_t slot);
-	void openImbuementWindow(const std::shared_ptr<Item> &item);
+	void openImbuementWindow(const Imbuement_Window_t type, const std::shared_ptr<Item> &item = nullptr);
 	void sendImbuementResult(const std::string &message) const;
 	void closeImbuementWindow() const;
 	void sendPodiumWindow(const std::shared_ptr<Item> &podium, const Position &position, uint16_t itemId, uint8_t stackpos) const;
 	void sendCloseContainer(uint8_t cid) const;
+
+	// Weapon Proficiency
+	EquippedWeaponProficiencyBonuses &getEquippedWeaponProficiency();
+	void sendWeaponProficiencyInfo(const uint16_t itemId) const;
+	void resetAllWeaponProficiencyPerks(const uint16_t itemId);
+	void applyEquippedWeaponProficiency(const uint16_t itemId);
+	void removeEquippedWeaponProficiency(const uint16_t itemId);
+	void sendWeaponProficiencyExperience(const uint16_t itemId, const uint32_t addProficiencyExperience);
+
+	std::unordered_map<uint16_t, WeaponProficiencyData> weaponProficiencies;
 
 	void sendChannel(uint16_t channelId, const std::string &channelName, const UsersMap* channelUsers, const InvitedMap* invitedUsers) const;
 	void sendTutorial(uint8_t tutorialId) const;
@@ -981,6 +1078,9 @@ public:
 
 	void setNextPotionAction(int64_t time);
 	bool canDoPotionAction() const;
+
+	void setNextExAction(int64_t time);
+	bool canDoExAction() const;
 
 	void setNextNecklaceAction(int64_t time);
 	bool canEquipNecklace() const;
@@ -1363,6 +1463,46 @@ public:
 		return m_managedContainers;
 	}
 
+	// Deflect conditions
+	struct DeflectCondition {
+		DeflectCondition(std::string source, ConditionType_t condition, uint8_t chance) :
+			source(source), condition(condition), chance(chance) { }
+		std::string source;
+		uint8_t chance = 0;
+		ConditionType_t condition = CONDITION_NONE;
+	};
+
+	const std::vector<DeflectCondition> &getDeflectConditions() const {
+		return deflectConditions;
+	}
+
+	// Searches according to a conditionType the higest chance found among the player's
+	// deflect conditions. Return defaults to 0 if no condition is met.
+	uint8_t getDeflectConditionChance(const ConditionType_t &conditionType) const;
+
+	// Removes a deflect condition from a player from a given source
+	void removeDeflectCondition(const std::string_view &source, const ConditionType_t &conditionType, const uint8_t &chance);
+
+	void addDeflectCondition(std::string source, ConditionType_t conditionType, uint8_t chance);
+
+	// Monk udpate
+	void sendHarmonyProtocol() const;
+	uint8_t getHarmony() const;
+	void setHarmony(const uint8_t harmonyValue);
+	void addHarmony(const uint8_t harmonyValue);
+	void removeHarmony(const uint8_t harmonyValue);
+	void sendSereneProtocol() const;
+	bool isSerene() const;
+	void setSerene(const bool isSerene);
+	uint64_t getSereneCooldown();
+	void setSereneCooldown(const uint64_t addTime);
+	void sendVirtueProtocol() const;
+	void setVirtue(const VirtueMonk_t virtue);
+	VirtueMonk_t getVirtue() const;
+	uint16_t getMantraTotal() const;
+
+	std::unordered_map<uint16_t, uint8_t> spellActivedAimMap;
+
 private:
 	friend class PlayerLock;
 	std::mutex mutex;
@@ -1504,6 +1644,7 @@ private:
 	int64_t lastPing;
 	int64_t lastPong;
 	int64_t nextAction = 0;
+	int64_t nextExAction = 0;
 	int64_t nextPotionAction = 0;
 	int64_t nextNecklaceAction = 0;
 	int64_t nextRingAction = 0;
@@ -1687,6 +1828,12 @@ private:
 	void clearCooldowns();
 	void triggerTranscendence();
 
+	// Monk Virtue
+	uint8_t m_harmony = 0;
+	bool m_serene = false;
+	uint64_t m_serene_cooldown = 0;
+	VirtueMonk_t m_virtue = VIRTUE_NONE;
+
 	friend class Game;
 	friend class SaveManager;
 	friend class Npc;
@@ -1750,4 +1897,16 @@ private:
 	int32_t getMarriageSpouse() const {
 		return marriageSpouse;
 	}
+
+	// Stores of conditions to be deflected from various sources, including from "imbuements".
+	// Different DeflectCondition containing the same data may be present.
+	// This is allowed because, for example, if armor and boots have a common imbument,
+	// unequipping the armor does not influence the boot's imbuement.
+	// When present simultaneously, the one with the greatest chance of occurrence will prevail.
+	std::vector<DeflectCondition> deflectConditions;
+
+	int16_t getMantraAbsorbPercent(int16_t mantraAbsorbValue) const;
+
+	void addWeaponProficiencyExperience(const std::shared_ptr<MonsterType> &mType, const ForgeClassifications_t classification, const bool bossSoulpit);
+	EquippedWeaponProficiencyBonuses equippedWeaponProficiency;
 };
